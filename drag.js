@@ -7,9 +7,9 @@ class Drag {
         this._draggable = false;
         // workaround for 'this' issue in event listeners
         this._bind2this = {};
-        this._bind2this.dragStart = this._dragStart.bind(this),
-        this._bind2this.dragEnd = this._dragEnd.bind(this),
-        this._bind2this.drag = this._drag.bind(this)
+        this._bind2this.dragStart = this._dragStart.bind(this);
+        this._bind2this.dragEnd = this._dragEnd.bind(this);
+        this._bind2this.drag = this._drag.bind(this);
     }
 
     start() {
