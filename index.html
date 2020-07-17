@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drag.js</title>
+    <style>
+        #box {
+            background-color: darkslategray;
+            border-radius: 50%;
+            height: 200px;
+            width: 200px;
+        }
+
+        #box.draggable {
+            cursor: move;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box" class=""></div>
+
+    <script src="drag.js"></script>
+    <script>
+
+        const $box = document.getElementById("box");
+        const drag = new Drag($box);
+        drag.start();
+        $box.classList.add("draggable");
+
+        window.setTimeout(function() {
+            drag.stop();
+            $box.classList.remove("draggable");
+        }, 2000);
+    </script>
+</body>
+</html>
