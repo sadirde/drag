@@ -46,7 +46,7 @@
         const timer = window.setInterval(function () {
             $time.innerHTML = --sec;
 
-            if (sec === 0) {
+            if (sec <= 0) {
                 $text.innerHTML = "You can't drag anymore.";
                 drag.stop();
                 $box.classList.remove("draggable");
