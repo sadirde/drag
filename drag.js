@@ -57,7 +57,7 @@ class Drag {
             this._currentPosition.y = evt.clientY - this._initialPosition.y;
             this._offset.x = this._currentPosition.x;
             this._offset.y = this._currentPosition.y;
-            this.element.style.transform = `translate3d(${this._currentPosition.x}px, ${this._currentPosition.y}px, 0)`;
+            this.element.style.transform = `translate(${this._currentPosition.x}px, ${this._currentPosition.y}px)`;
         }
     }
 }
