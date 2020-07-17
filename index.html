@@ -7,7 +7,6 @@
     <style>
         #box {
             background-color: darkslategray;
-            border-radius: 50%;
             height: 200px;
             width: 200px;
         }
@@ -15,11 +14,21 @@
         #box.draggable {
             cursor: move;
         }
+
+        #text {
+            background: #242424;
+            color: #fff;
+            cursor: initial;
+            padding: .5em;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-    <div id="box" class=""></div>
+    <div id="box" class="">
+        <div id="text">You can drag for <span id="time"></span> seconds.</div>
+    </div>
 
     <script src="drag.js"></script>
     <script>
@@ -29,10 +38,21 @@
         drag.start();
         $box.classList.add("draggable");
 
-        window.setTimeout(function() {
-            drag.stop();
-            $box.classList.remove("draggable");
-        }, 2000);
+        /* counter */
+        const $text = document.getElementById("text");
+        const $time = document.getElementById("time");
+        let sec = 5;
+        $time.innerHTML = sec;
+        const timer = window.setInterval(function () {
+            $time.innerHTML = --sec;
+
+            if (sec === 0) {
+                $text.innerHTML = "You can't drag anymore.";
+                drag.stop();
+                $box.classList.remove("draggable");
+                window.clearInterval(timer);
+            }
+        }, 1000);
     </script>
 </body>
 </html>
