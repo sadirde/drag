@@ -39,10 +39,7 @@ class Drag {
         evt = evt.type === "touchstart" ? evt.touches[0] : evt;
         this._initialPosition.x = evt.clientX - this._offset.x;
         this._initialPosition.y = evt.clientY - this._offset.y;
-
-        if (target === this.element) {
-            this._draggable = true;
-        }
+        this._draggable = true;
     }
 
     _dragEnd() {
