@@ -5,6 +5,7 @@ class Drag {
         this._currentPosition = {};
         this._offset = { x: 0, y: 0 };
         this._draggable = false;
+        this._functions = {};
         // workaround for 'this' issue in event listeners
         this._bind2this = {};
         this._bind2this.dragStart = this._dragStart.bind(this);
@@ -12,12 +13,21 @@ class Drag {
         this._bind2this.drag = this._drag.bind(this);
     }
 
-    start() {
+    activate() {
         this._setEventListeners("add");
     }
 
-    stop() {
+    deactivate() {
         this._setEventListeners("remove");
+        this._dragEnd();
+    }
+
+    on(type, fn) {
+        this._functions[type] = fn;
+    }
+
+    off(type) {
+        this._functions[type] = null;
     }
 
     _setEventListeners(type) {
@@ -39,12 +49,14 @@ class Drag {
         this._initialPosition.x = evt.clientX - this._offset.x;
         this._initialPosition.y = evt.clientY - this._offset.y;
         this._draggable = true;
+        this._functions.start && this._functions.start();
     }
 
     _dragEnd() {
         this._initialPosition.x = this._currentPosition.x;
         this._initialPosition.y = this._currentPosition.y;
         this._draggable = false;
+        this._functions.end && this._functions.end();
     }
 
     _drag(evt) {
@@ -57,6 +69,7 @@ class Drag {
             this._offset.x = this._currentPosition.x;
             this._offset.y = this._currentPosition.y;
             this.element.style.transform = `translate(${this._currentPosition.x}px, ${this._currentPosition.y}px)`;
+            this._functions.drag && this._functions.drag();
         }
     }
 }

@@ -15,12 +15,23 @@
             cursor: move;
         }
 
+        #box.dragged {
+            background-color: darksalmon;
+        }
+
         #text {
             background: #242424;
             color: #fff;
-            cursor: initial;
             padding: .5em;
             text-align: center;
+        }
+
+        .container {
+            background-color: skyblue;
+            margin: 1em auto;
+            padding: 1em;
+            width: 25em;
+            position: relative;
         }
     </style>
 </head>
@@ -35,20 +46,27 @@
 
         const $box = document.getElementById("box");
         const drag = new Drag($box);
-        drag.start();
+
+        drag.on("start", function () {
+            $box.classList.add("dragged");
+        });
+        drag.on("end", function() {
+            $box.classList.remove("dragged");
+        });
+        drag.activate();
         $box.classList.add("draggable");
 
         /* counter */
         const $text = document.getElementById("text");
         const $time = document.getElementById("time");
-        let sec = 5;
+        let sec = 10;
         $time.innerHTML = sec;
         const timer = window.setInterval(function () {
             $time.innerHTML = --sec;
 
             if (sec <= 0) {
                 $text.innerHTML = "You can't drag anymore.";
-                drag.stop();
+                drag.deactivate();
                 $box.classList.remove("draggable");
                 window.clearInterval(timer);
             }
