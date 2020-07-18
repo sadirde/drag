@@ -35,7 +35,6 @@ class Drag {
     _dragStart(evt) {
         evt.preventDefault();
 
-        const target = evt.target;
         evt = evt.type === "touchstart" ? evt.touches[0] : evt;
         this._initialPosition.x = evt.clientX - this._offset.x;
         this._initialPosition.y = evt.clientY - this._offset.y;
